@@ -1,6 +1,6 @@
-package pl.lodz.p.kryptografia.schnorr;
+package pl.lodz.p.kryptografia.zadanie3;
 
-import pl.lodz.p.kryptografia.schnorr.alg.Schnorr;
+import pl.lodz.p.kryptografia.zadanie3.schnorr.Schnorr;
 
 import java.security.NoSuchAlgorithmException;
 

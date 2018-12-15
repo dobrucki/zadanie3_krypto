@@ -1,4 +1,4 @@
-package pl.lodz.p.kryptografia.schnorr.alg;
+package pl.lodz.p.kryptografia.zadanie3.schnorr;
 
 
 import java.math.BigInteger;
