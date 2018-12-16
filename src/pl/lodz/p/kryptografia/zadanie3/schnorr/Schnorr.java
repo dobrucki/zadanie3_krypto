@@ -9,9 +9,8 @@ import java.util.Random;
 public class Schnorr {
 
 
-    public Signature generateSignature(){
+    public Signature generateSignature(int bits){
         Random rnd = new SecureRandom();
-        int bits = 512;
         int certainity = 100;
 
         BigInteger q = BigInteger.probablePrime(bits, rnd);
@@ -40,7 +39,7 @@ public class Schnorr {
     public Sign sign(byte[] message, Signature sig) throws NoSuchAlgorithmException {
 
         Random rnd = new SecureRandom();
-        BigInteger x, r, w, s1, s2;
+        BigInteger x, r, s1, s2;
         r = new BigInteger(sig.q.bitLength(), rnd);
         x = sig.g.modPow(r, sig.p);
         MessageDigest md = MessageDigest.getInstance("sha-256");
