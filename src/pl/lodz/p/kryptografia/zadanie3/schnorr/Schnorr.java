@@ -1,82 +1,72 @@
 package pl.lodz.p.kryptografia.zadanie3.schnorr;
 
-
 import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.MessageDigest;
 import java.util.Random;
 
 public class Schnorr {
 
-    public static void sign() throws NoSuchAlgorithmException{
+
+    public Signature generateSignature(){
         Random rnd = new SecureRandom();
-        BigInteger p = BigInteger.probablePrime(1024, rnd);
-        BigInteger q;
+        int bits = 512;
+        int certainity = 100;
+
+        BigInteger q = BigInteger.probablePrime(bits, rnd);
+        BigInteger p;
+
+        BigInteger qp = BigInteger.ONE;
+
         do{
-            q = BigInteger.probablePrime(160, rnd);
-        }while(p.subtract(BigInteger.ONE).mod(q).compareTo(BigInteger.ZERO) == 0);
-
-//        System.out.println("P: " + p);
-//        System.out.println("Q: " + q);
-        BigInteger a;
+            p = q.multiply(qp).multiply(BigInteger.valueOf(2)).add(BigInteger.ONE);
+            qp = qp.add(BigInteger.ONE);
+        }while(!p.isProbablePrime(certainity));
+        System.out.println(p.subtract(BigInteger.ONE).divide(q));
+        BigInteger a, g;
         do{
-            a = new BigInteger(40, rnd);
-        }while(a.compareTo(BigInteger.ONE) != 0 && a.modPow(q, p).compareTo(BigInteger.ONE) == 0);
-//        System.out.println(a);
+            a = (BigInteger.valueOf(2).add(new BigInteger(bits, certainity, rnd))).mod(p);
+            BigInteger ga = (p.subtract(BigInteger.ONE)).divide(q);
+            g = a.modPow(ga, p);
+        }while(g.compareTo(BigInteger.ONE) == 0);
 
+        BigInteger w = new BigInteger(bits, rnd);
+        BigInteger y = g.modPow(w, p);
 
-        // Private key
-        BigInteger s;
-        do {
-            s = new BigInteger(40, rnd);
-        } while(s.compareTo(q) != -1 && s.compareTo(BigInteger.ONE) != 1);
+        return new Signature(q, p, g, y, w);
+    }
 
-        System.out.println("Private key: " + s);
+    public Sign sign(byte[] message, Signature sig) throws NoSuchAlgorithmException {
 
-        // Public key
-        BigInteger v;
-        v = a.modPow(s.negate(), p);
-        System.out.println("Public key: " + v);
+        Random rnd = new SecureRandom();
+        BigInteger x, r, w, s1, s2;
+        r = new BigInteger(sig.q.bitLength(), rnd);
+        x = sig.g.modPow(r, sig.p);
+        MessageDigest md = MessageDigest.getInstance("sha-256");
+        md.reset();
+        md.update(message);
+        md.update(x.toByteArray()); // ???? sprawdzic (x.toString.getBytes())
+        byte[] d = md.digest();
+        s1 = new BigInteger(1, d);
+        s2 = (r.subtract(sig.w.multiply(s1))).mod(sig.q);
 
+        return new Sign(s1, s2);
+    }
 
-        // Digital Signature part
+    public boolean verify(byte[] message, Sign sign, Signature signature) throws NoSuchAlgorithmException{
+        Random rnd = new SecureRandom();
+        BigInteger x1 = signature.g.modPow(sign.s2, signature.p);
+        BigInteger x2 = signature.y.modPow(sign.s1, signature.p).mod(signature.p);
+        BigInteger x = x1.multiply(x2).mod(signature.p);
 
-        // Example message
-        String M = "Jakas wiadomosc. ";
-
-        BigInteger r;
-        do{
-            r = new BigInteger(40, rnd);
-        }while(s.compareTo(q) != -1 && s.compareTo(BigInteger.ONE) != 1);
-        BigInteger x = a.modPow(r, p);
-        String message = M + x.toString();
-
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.reset();
-        messageDigest.digest(message.getBytes());
-        byte[] md = messageDigest.digest();
-        BigInteger e = new BigInteger(md);
-        System.out.println(e);
-
-
-        BigInteger se = s.multiply(e);
-        BigInteger y = (r.add(se)).mod(q);
-
-
-        BigInteger x1 = (a.modPow(y, p).multiply(v.modPow(e, p))).mod(p);
-
-        String message1 = M + x1.toString();
-
-        MessageDigest mes = MessageDigest.getInstance("SHA-256");
-        messageDigest.reset();
-        messageDigest.digest(message1.getBytes());
-        byte[] md1 = messageDigest.digest();
-        BigInteger e1 = new BigInteger(md1);
-
-        System.out.println(e1);
-
-
-
+        MessageDigest md = MessageDigest.getInstance("sha-256");
+        md.reset();
+        md.update(message);
+        md.update(x.toByteArray());
+        byte[] d = md.digest();
+        BigInteger h = new BigInteger(1, d);
+        if(sign.s1.equals(h)) return true;
+        return false;
     }
 }
