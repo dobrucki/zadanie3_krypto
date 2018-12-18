@@ -22,7 +22,6 @@ public class Schnorr {
             p = q.multiply(qp).multiply(BigInteger.valueOf(2)).add(BigInteger.ONE);
             qp = qp.add(BigInteger.ONE);
         }while(!p.isProbablePrime(certainity));
-        System.out.println(p.subtract(BigInteger.ONE).divide(q));
         BigInteger a, g;
         do{
             a = (BigInteger.valueOf(2).add(new BigInteger(bits, certainity, rnd))).mod(p);
