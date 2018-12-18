@@ -4,7 +4,7 @@ Zadanie 3 - Informatyka, semestr III, kryptografia
 
 ## Jak użyć?
 
-Pobierz jar'a [zadanie3_krypto-v1.0.1]().
+Pobierz jar'a [zadanie3_krypto-v1.0.1](https://github.com/dobrucki/zadanie3_krypto/releases/download/v1.0.1/zadanie3_krypto-v1.0.1.jar).
 
 Następnie uruchom, np:
 
