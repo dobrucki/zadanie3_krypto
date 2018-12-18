@@ -23,7 +23,7 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="publicKey1" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -37,7 +37,7 @@
                   <HBox alignment="TOP_CENTER" layoutX="60.0" layoutY="92.0">
                      <children>
                         <TextField fx:id="privateKey1" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -68,7 +68,7 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="publicKey2" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -83,7 +83,7 @@
                   <HBox alignment="TOP_CENTER" layoutX="60.0" layoutY="92.0">
                      <children>
                         <TextField fx:id="privateKey2" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -98,7 +98,7 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="file2" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -113,14 +113,14 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="sign2" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="signBtn" mnemonicParsing="false" text="Podpisz" onAction="#sign">
+                  <Button fx:id="signBtn" mnemonicParsing="false" onAction="#sign" text="Podpisz">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="16.0" />
                      </font>
@@ -144,7 +144,7 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="publicKey3" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -159,7 +159,7 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="file3" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -174,14 +174,14 @@
                   <HBox alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="sign3" prefHeight="27.0" prefWidth="600.0" />
-                        <Button mnemonicParsing="false" text="Wybierz Plik">
+                        <Button mnemonicParsing="false" onAction="#chooseFile" text="Wybierz Plik">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="verifyBtn" mnemonicParsing="false" text="Weryfikuj" onAction="#verify">
+                  <Button fx:id="verifyBtn" mnemonicParsing="false" onAction="#verify" text="Weryfikuj">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="16.0" />
                      </font>

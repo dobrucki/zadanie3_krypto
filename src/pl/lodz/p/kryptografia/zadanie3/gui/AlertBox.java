@@ -1,5 +1,6 @@
 package pl.lodz.p.kryptografia.zadanie3.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,9 +27,14 @@ public class AlertBox {
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, button);
         layout.setAlignment(Pos.TOP_CENTER);
+        layout.setPadding(new Insets(10, 10, 10, 10));
 
         Scene scene = new Scene(layout);
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    public static void display(String message){
+        display("Komunikat", message);
     }
 }
